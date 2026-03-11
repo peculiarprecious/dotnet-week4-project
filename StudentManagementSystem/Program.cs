@@ -5,9 +5,7 @@ List<int> studentIDs = new List<int> { 1, 2, 3, 4, 5 };
 List<string> studentNames = new List<string> { "David Ayeni", "Joy Osaghae", "Sandra Ike", "Sone Adibeli", "Blessing Okafor" };
 List<double> studentScores = new double[] { 95.3, 60.8, 59.5, 45.0, 30.0 }.ToList();
 List<char> Status = new List<Char> { 'A', 'B', 'C', 'D', 'F' };
-
-// 2. Number of students (int)
-int numberOfStudents = studentIDs.Count;
+List<string> gradeStatus = new List<string> { "Pass", "Pass", "Pass", "Pass", "Fail" };
 
 
 bool IsActiveMenu = true;
@@ -51,10 +49,12 @@ while (IsActiveMenu)
                 break;
             }
 
-            char statusInput ;
+            char statusInput;
+            string gradestatus1 = (studentScore > 40) ? "Pass" : "Fail";
             if (studentScore >= 70)
             {
                 statusInput = 'A';
+                gradestatus1 = "Pass";
             }
             else if (studentScore >= 60) // If it's 60 to 69
             {
@@ -82,24 +82,74 @@ while (IsActiveMenu)
             studentNames.Add(studentName);
             studentScores.Add(studentScore);
             Status.Add(statusInput);
+            gradeStatus.Add(gradestatus1);
 
             // 4. Confirm Success
-            Console.WriteLine($"\nSUCCESS: Student '{studentName}' (Student ID: {nextID}) added with score {studentScore}{statusInput}.");
+            Console.WriteLine($"\nSUCCESS: Student '{studentName}' (Student ID: {nextID}) added with score {studentScore}, Grade: {statusInput} , Status: {gradestatus1}.");
             break;
 
         //View All Students
         case 2:
-             Console.WriteLine("\n--- Student List ---");
+            Console.WriteLine("\n--- Student List ---");
 
-             for (int i = 0; i < studentIDs.Count; i++)
-             {
-                 Console.WriteLine($"ID: {studentIDs[i]}, Name: {studentNames[i]}, Score: {studentScores[i]}, Status: {Status[i]}");
-             }
+            for (int i = 0; i < studentIDs.Count; i++)
+            {
+                Console.WriteLine($"ID: {studentIDs[i]}, Name: {studentNames[i]}, Score: {studentScores[i]}, Grade: {Status[i]}, Status: {gradeStatus[i]} ");
+            }
             break;
+        //Calculate Average grade
         case 3:
+            Console.WriteLine("\n--- Calculating Average Grade ---");
+            double sum = 0;
+
+            foreach (double score in studentScores)
+            {
+                sum += score;
+            }
+            if (studentScores.Count > 0)
+            {
+                double average = sum / studentScores.Count;
+                Console.WriteLine($"The average grade for {studentIDs.Count} students is: {average:F2}");
+            }
+            else
+            {
+                Console.WriteLine("No students in the system.");
+            }
 
             break;
+        //Find Student by ID
         case 4:
+            Console.WriteLine("\n--- Find Student by ID ---");
+            Console.Write("Enter Student ID: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int inputStudentID) || inputStudentID <= 0)
+            {
+                Console.WriteLine("Error: ID must be a positive number.");
+                break;
+
+            }
+
+            bool found = false;
+            for (int i = 0; i < studentIDs.Count; i++)
+            {
+                if (studentIDs[i] == inputStudentID)
+                {
+                    Console.WriteLine("\n--- Student Found! ---");
+                    Console.WriteLine($"ID: {studentIDs[i]}");
+                    Console.WriteLine($"Name: {studentNames[i]}");
+                    Console.WriteLine($"Score: {studentScores[i]}");
+                    Console.WriteLine($"Status: {Status[i]}");
+
+                    found = true;
+                    break;
+                }
+
+            }
+            if (!found)
+            {
+                Console.WriteLine("Student not found");
+            }
+
 
             break;
         case 5:
