@@ -138,7 +138,8 @@ while (IsActiveMenu)
                     Console.WriteLine($"ID: {studentIDs[i]}");
                     Console.WriteLine($"Name: {studentNames[i]}");
                     Console.WriteLine($"Score: {studentScores[i]}");
-                    Console.WriteLine($"Status: {Status[i]}");
+                    Console.WriteLine($"Grade: {Status[i]}");
+                    Console.WriteLine($"Status: {gradeStatus[i]}");
 
                     found = true;
                     break;
@@ -152,11 +153,116 @@ while (IsActiveMenu)
 
 
             break;
+        //Update student score by ID
         case 5:
+            Console.WriteLine("\n--- Update student score by ID ---");
+            Console.Write("Enter Student ID: ");
 
+            if (!int.TryParse(Console.ReadLine(), out int inputStudentID1) || inputStudentID1 <= 0)
+            {
+                Console.WriteLine("Error: ID must be a positive number.");
+                break;
+
+            }
+
+            bool found1 = false;
+            for (int i = 0; i < studentIDs.Count; i++)
+            {
+                if (studentIDs[i] == inputStudentID1)
+                {
+
+
+                    Console.Write("Enter Student Score (0-100): ");
+                    if (!double.TryParse(Console.ReadLine(), out double studentScore1) || studentScore1 < 0 || studentScore1 > 100)
+                    {
+                        Console.WriteLine("Error: Score must be a number between 0 and 100.");
+                        break;
+                    }
+                    char statusInput1;
+                    string gradestatus2 = (studentScore1 > 40) ? "Pass" : "Fail";
+                    if (studentScore1 >= 70)
+                    {
+                        statusInput1 = 'A';
+
+                    }
+                    else if (studentScore1 >= 60) // If it's 60 to 69
+                    {
+                        statusInput1 = 'B';
+                    }
+                    else if (studentScore1 >= 50) // If it's 50 to 59
+                    {
+                        statusInput1 = 'C';
+                    }
+                    else if (studentScore1 >= 45) // If it's 45 to 49
+                    {
+                        statusInput1 = 'D';
+                    }
+                    else if (studentScore1 >= 40) // If it's 40 to 44
+                    {
+                        statusInput1 = 'E';
+                    }
+                    else // Anything below 40
+                    {
+                        statusInput1 = 'F';
+                    }
+
+
+                    studentScores[i] = studentScore1;
+                    Status[i] = statusInput1;
+                    gradeStatus[i] = gradestatus2;
+
+                    Console.WriteLine($"\nUpdate successful: Student '{studentNames[i]}' (Student ID: {studentIDs[i]}) added with score {studentScores[i]}, Grade: {Status[i]} , Status: {gradeStatus[i]}.");
+
+                    found1 = true;
+                    break;
+                }
+
+            }
+            if (!found1)
+            {
+                Console.WriteLine("Student not found");
+            }
             break;
-        case 6:
 
+        //Delete student record by ID
+        case 6:
+            Console.WriteLine("\n--- Delete student record by ID ---");
+            Console.Write("Enter Student ID: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int inputStudentID2) || inputStudentID2 <= 0)
+            {
+                Console.WriteLine("Error: ID must be a positive number.");
+                break;
+
+            }
+
+            bool found2 = false;
+
+            for (int i = 0; i < studentIDs.Count; i++)
+            {
+                if (studentIDs[i] == inputStudentID2)
+                {
+
+                    string deletedName = studentNames[i];
+
+                    // Remove the record from list at index [i]
+                    studentIDs.RemoveAt(i);
+                    studentNames.RemoveAt(i);
+                    studentScores.RemoveAt(i);
+                    Status.RemoveAt(i);
+                    gradeStatus.RemoveAt(i);
+
+                    Console.WriteLine($"\nSUCCESS: Record for '{deletedName}' has been deleted.");
+
+                    found2 = true;
+                    break;
+                }
+            }
+
+            if (!found2)
+            {
+                Console.WriteLine("Student not found");
+            }
             break;
         case 7:
 
