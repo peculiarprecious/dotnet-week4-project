@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //Student Management System
 
+// Data Storage using Lists
 List<int> studentIDs = new List<int> { 1, 2, 3, 4, 5 };
 List<string> studentNames = new List<string> { "David Ayeni", "Joy Osaghae", "Sandra Ike", "Sone Adibeli", "Blessing Okafor" };
 List<double> studentScores = new double[] { 95.3, 60.8, 59.5, 45.0, 30.0 }.ToList();
@@ -36,7 +37,7 @@ while (IsActiveMenu)
 
             string? studentName = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(studentName))
+            if (string.IsNullOrWhiteSpace(studentName)) //String Validation: Name cannot be empty
             {
                 Console.WriteLine("Error: Name cannot be empty.");
                 break;
@@ -91,10 +92,17 @@ while (IsActiveMenu)
         //View All Students
         case 2:
             Console.WriteLine("\n--- Student List ---");
+            
+            // 1. Print the Header with specific spacing
+    Console.WriteLine($"{"ID", -5} {"Name", -18} {"Score", -8} {"Grade", -8} {"Status", -8}");
+    Console.WriteLine(new string('-', 50)); // Prints a dashed line
 
             for (int i = 0; i < studentIDs.Count; i++)
+
+            // 2. Align each column to match the header
+        // ID (5 spaces), Name (18 spaces), Score (8 spaces), Grade (8), Status (8)
             {
-                Console.WriteLine($"ID: {studentIDs[i]}, Name: {studentNames[i]}, Score: {studentScores[i]}, Grade: {Status[i]}, Status: {gradeStatus[i]} ");
+        Console.WriteLine($"{studentIDs[i], -5} {studentNames[i], -18} {studentScores[i], -8:F1} {Status[i], -8} {gradeStatus[i], -8}");
             }
             break;
         //Calculate Average grade
@@ -102,7 +110,7 @@ while (IsActiveMenu)
             Console.WriteLine("\n--- Calculating Average Grade ---");
             double sum = 0;
 
-            foreach (double score in studentScores)
+            foreach (double score in studentScores) // To read out every score in the score list
             {
                 sum += score;
             }
@@ -130,7 +138,7 @@ while (IsActiveMenu)
             }
 
             bool found = false;
-            for (int i = 0; i < studentIDs.Count; i++)
+            for (int i = 0; i < studentIDs.Count; i++) //To find a match at index[i]
             {
                 if (studentIDs[i] == inputStudentID)
                 {
@@ -166,7 +174,7 @@ while (IsActiveMenu)
             }
 
             bool found1 = false;
-            for (int i = 0; i < studentIDs.Count; i++)
+            for (int i = 0; i < studentIDs.Count; i++) //To find a match at index[i]
             {
                 if (studentIDs[i] == inputStudentID1)
                 {
@@ -238,7 +246,7 @@ while (IsActiveMenu)
 
             bool found2 = false;
 
-            for (int i = 0; i < studentIDs.Count; i++)
+            for (int i = 0; i < studentIDs.Count; i++) //To find a match at index[i]
             {
                 if (studentIDs[i] == inputStudentID2)
                 {
@@ -277,7 +285,7 @@ while (IsActiveMenu)
                 double maxScore = studentScores.Max();
                 double averageScore = studentScores.Average();
 
-                foreach (double score in studentScores)
+                foreach (double score in studentScores) // To read out every score in the score list
                 {
                     if (score >= 60)
                     {
