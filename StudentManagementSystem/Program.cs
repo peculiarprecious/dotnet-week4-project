@@ -264,7 +264,46 @@ while (IsActiveMenu)
                 Console.WriteLine("Student not found");
             }
             break;
+        //Display Statistics
         case 7:
+
+            if (studentScores.Count > 0)
+
+            {
+                int passCount = 0;
+                int failCount = 0;
+                double totalScore = 0;
+                double minScore = studentScores.Min();
+                double maxScore = studentScores.Max();
+                double averageScore = studentScores.Average();
+
+                foreach (double score in studentScores)
+                {
+                    if (score >= 60)
+                    {
+                        passCount++;
+                    }
+                    else
+                    {
+                        failCount++;
+                    }
+
+                    totalScore +=score;
+                }
+
+                Console.WriteLine("\n--- Display Statistics ---");
+                Console.WriteLine($"Total Students: {studentScores.Count}");
+                Console.WriteLine($"Highest Score: {maxScore}");
+                Console.WriteLine($"Lowest Score: {minScore}");
+                Console.WriteLine($"Class Average: {averageScore:F2}");
+                Console.WriteLine($"Passing Students (>=60): {passCount}");
+                Console.WriteLine($"Failing Students (<60):  {failCount}");
+                Console.WriteLine($"Total Score:  {totalScore}");
+            }
+            else
+            {
+                Console.WriteLine("No data available to display statistics.");
+            }
 
             break;
         case 8:
